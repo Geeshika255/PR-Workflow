@@ -6,23 +6,23 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - name: create a file
+      - name: Create a file
         run: echo "Hello World" > file.txt
-        name: upload a artifact
-        uses: actions/upload artifact@v4
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-        name: my file
-        path: file.txt
+          name: my-file
+          path: file.txt
 
   job2:
     needs: job1
     runs-on: ubuntu-latest
     steps:
-      - name: download a file
-        uses: actions/upload artifact@v4
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
-        name: my file
-         // add a setup to read file.txt
-        name: read file.txt
+          name: my-file
+
+      - name: Read file
         run: cat file.txt
-        
