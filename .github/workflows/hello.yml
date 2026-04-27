@@ -1,16 +1,28 @@
 name: PR Workflow
 
-on: [push, pull_request]
+on: push
 
 jobs:
-  say-hello:
+  job1:
     runs-on: ubuntu-latest
     steps:
-      - name: print message
-        run: echo "Hello from First Job:" 
-  say-bye:
-    needs: say-hello
+      - name: create a file
+        run: echo "Hello World" > file.txt
+        name: upload a artifact
+        uses: actions/upload artifact@v4
+        with:
+        name: my file
+        path: file.txt
+
+  job2:
+    needs: job1
     runs-on: ubuntu-latest
     steps:
-      - name: Print message
-        run: echo "bye from SEcond Job:"
+      - name: download a file
+        uses: actions/upload artifact@v4
+        with:
+        name: my file
+         // add a setup to read file.txt
+        name: read file.txt
+        run: cat file.txt
+        
